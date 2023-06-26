@@ -5,15 +5,12 @@ function getTravelRecords(tickets) {
          return '';
     }
     
-    // get the list of sources
-    const sources = tickets.map(ticket => ticket.source);
-
     //get the starting point - starting point is where source is not same as destination
     let startingLocation = '';
 
     tickets.every(ticket => {
         const {source, destination} = ticket;
-        const result = tickets.filter(ticket => source === ticket.destination);
+        const result = tickets.filter(ticket => source === ticket?.destination);
         if(result.length === 0) {
             startingLocation = source;
             return false;
@@ -26,15 +23,14 @@ function getTravelRecords(tickets) {
      }
 
      // get the destination and add it to the passenger Journey Record
-     let endingLocation = tickets.filter(ticket => ticket.source === startingLocation)[0]?.destination;
+     let endingLocation = tickets.filter(ticket => ticket?.source === startingLocation)[0]?.destination;
      passenGarJourneyRecord.push(startingLocation);
 
      while(endingLocation) {
         passenGarJourneyRecord.push(endingLocation);
-        endingLocation = tickets.filter(ticket => ticket.source === endingLocation)[0]?.destination;
+        endingLocation = tickets.filter(ticket => ticket?.source === endingLocation)[0]?.destination;
     }
 
-    console.log("passengarJourney Record:", passenGarJourneyRecord);
     return passenGarJourneyRecord.join(',')
 }
 
